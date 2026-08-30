@@ -12,6 +12,8 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* Disable blue highlight on mobile tap */
+            -webkit-tap-highlight-color: transparent; 
         }
 
         body {
@@ -30,6 +32,21 @@
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
+        }
+
+        /* --- Click Animations (Touch Feedback) --- */
+        .nav-left svg:active, .nav-right svg:active, 
+        .profile-pic:active, .tab-count:active,
+        .search-icon:active, .action-btn:active, 
+        .shortcut:active, .tips-content button:active, 
+        .news-item:active {
+            opacity: 0.6;
+            transform: scale(0.95);
+            transition: all 0.1s ease;
+        }
+
+        .action-btn, .shortcut, .news-item, .tips-content button {
+            transition: all 0.2s ease;
         }
 
         /* Top Navigation */
@@ -103,6 +120,13 @@
             gap: 12px;
         }
 
+        form.search-form {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            gap: 12px;
+        }
+
         .search-bar input {
             flex: 1;
             background: transparent;
@@ -110,6 +134,7 @@
             color: #ffffff;
             font-size: 16px;
             outline: none;
+            width: 100%;
         }
 
         .search-bar input::placeholder {
@@ -144,6 +169,7 @@
             font-weight: 500;
             color: #e3e3e3;
             cursor: pointer;
+            user-select: none;
         }
 
         .action-btn svg {
@@ -175,6 +201,7 @@
             gap: 8px;
             min-width: 68px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .shortcut-icon {
@@ -273,6 +300,7 @@
             font-size: 14px;
             float: right;
             cursor: pointer;
+            outline: none;
         }
 
         /* News Feed (Discover Section) */
@@ -292,6 +320,7 @@
             padding: 16px 20px;
             border-bottom: 1px solid #3c4043;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .news-item:last-child {
@@ -363,83 +392,79 @@
 <body>
 
     <div class="phone-container">
-        <!-- Top Nav -->
         <header class="top-nav">
-            <div class="nav-left">
+            <div class="nav-left" onclick="alert('Home button clicked!')">
                 <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             </div>
             <div class="nav-right">
-                <div class="profile-pic"></div>
-                <div class="tab-count">1</div>
-                <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <div class="profile-pic" onclick="alert('Opening Google Account settings...')"></div>
+                <div class="tab-count" onclick="alert('Showing active tabs...')">1</div>
+                <svg viewBox="0 0 24 24" onclick="alert('Opening Chrome Menu...')"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
             </div>
         </header>
 
-        <!-- Logo -->
         <div class="logo-container">
             <h1>Google</h1>
         </div>
 
-        <!-- Search Bar -->
         <div class="search-wrapper">
             <div class="search-bar">
-                <svg viewBox="0 0 24 24" width="22" height="22">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-                <input type="text" placeholder="Search Google or type...">
-                <div class="search-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
-                </div>
-                <div class="search-icon">
-                    <svg viewBox="0 0 24 24"><path d="M19 8h-1V6c0-1.1-.9-2-2-2h-3v2h3v2h-1c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm-1 8h-3v-6h3v6zm-7-2H8v-2h3V9H8V7h3V5H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3v-1zm-3-3H6v-2h2v2z"/></svg>
-                </div>
+                <form class="search-form" onsubmit="performSearch(event)">
+                    <svg viewBox="0 0 24 24" width="22" height="22" onclick="window.open('https://google.com', '_blank')" style="cursor: pointer;">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search Google or type...">
+                    <div class="search-icon" onclick="alert('Opening Voice Search...')">
+                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                    </div>
+                    <div class="search-icon" onclick="alert('Opening Google Lens...')">
+                        <svg viewBox="0 0 24 24"><path d="M19 8h-1V6c0-1.1-.9-2-2-2h-3v2h3v2h-1c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm-1 8h-3v-6h3v6zm-7-2H8v-2h3V9H8V7h3V5H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3v-1zm-3-3H6v-2h2v2z"/></svg>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="action-buttons">
-            <div class="action-btn">
+            <div class="action-btn" onclick="alert('Activating Google AI Mode...')">
                 <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 10h-2v2h-2v-2h-2v-2h2V9h2v2h2v2z"/></svg>
                 AI Mode
             </div>
-            <div class="action-btn">
+            <div class="action-btn" onclick="alert('Opening New Incognito Tab...')">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
                 Incognito
             </div>
         </div>
 
-        <!-- Shortcuts -->
         <div class="shortcuts-container">
-            <div class="shortcut">
+            <a href="https://facebook.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#1877F2; font-size: 28px;">f</div>
                 <div class="shortcut-text">Facebook</div>
-            </div>
-            <div class="shortcut">
+            </a>
+            <a href="https://youtube.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#282828;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="red"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                 </div>
                 <div class="shortcut-text">YouTube</div>
-            </div>
-            <div class="shortcut">
+            </a>
+            <a href="https://cricbuzz.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#009270; font-size: 18px;">cb</div>
-                <div class="shortcut-text">Cricbuzz.c...</div>
-            </div>
-            <div class="shortcut">
+                <div class="shortcut-text">Cricbuzz</div>
+            </a>
+            <a href="https://espncricinfo.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#000;">
                     <div style="width: 24px; height: 24px; background: #00B1FF; border-radius: 4px;"></div>
                 </div>
-                <div class="shortcut-text">ESPNcricinfo</div>
-            </div>
-            <div class="shortcut">
+                <div class="shortcut-text">ESPNcric...</div>
+            </a>
+            <a href="https://bikroy.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#36373A;">B</div>
                 <div class="shortcut-text">Bikroy</div>
-            </div>
+            </a>
         </div>
 
-        <!-- Chrome Tips -->
         <div class="tips-card">
             <div class="tips-header">Chrome tips</div>
             <div class="tips-body">
@@ -449,17 +474,14 @@
                 <div class="tips-content">
                     <h3>Choose address bar position</h3>
                     <p>Switch the position to customize your ...</p>
-                    <button>Go to settings</button>
+                    <button onclick="alert('Opening Chrome Settings...')">Go to settings</button>
                 </div>
             </div>
         </div>
 
-        <!-- News Feed Section (Discover) -->
         <div class="discover-section" id="news-feed">
-            <!-- News items will be generated here by JavaScript -->
-        </div>
+            </div>
         
-        <!-- Loading Indicator (Triggers the infinite scroll) -->
         <div class="loader-container" id="loading-trigger">
             <div class="spinner"></div>
             Loading more...
@@ -467,8 +489,16 @@
 
     </div>
 
-    <!-- JavaScript for Infinite Scroll and Dynamic Content -->
     <script>
+        // Google Search Functionality
+        function performSearch(event) {
+            event.preventDefault(); // Prevent page reload
+            const query = document.getElementById('searchInput').value;
+            if (query.trim() !== '') {
+                window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
+            }
+        }
+
         // Dummy data for generating random news
         const newsDatabase = [
             { title: "'No sign of survivors' at Chinese border crossing as Nepal flooding death toll rises", source: "CNN", time: "2h", color: "#CC0000" },
@@ -484,18 +514,22 @@
         const newsFeedContainer = document.getElementById('news-feed');
         const loadingTrigger = document.getElementById('loading-trigger');
 
-        // Function to get a random item from array
         function getRandomItem(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        // Function to create a single news card HTML element
         function createNewsCard() {
             const news = getRandomItem(newsDatabase);
-            const randomImageId = Math.floor(Math.random() * 1000); // For random images on every load
+            const randomImageId = Math.floor(Math.random() * 1000); 
             
-            const card = document.createElement('div');
+            // Search the news title in Google when clicked
+            const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(news.title);
+            
+            // Generate link instead of div for clickability
+            const card = document.createElement('a');
             card.className = 'news-item';
+            card.href = searchUrl;
+            card.target = '_blank';
             
             card.innerHTML = `
                 <div class="news-text">
@@ -511,7 +545,6 @@
             return card;
         }
 
-        // Function to load multiple news items at once
         function loadMoreNews(count = 3) {
             for (let i = 0; i < count; i++) {
                 const newCard = createNewsCard();
@@ -519,30 +552,27 @@
             }
         }
 
-        // 1. Initial Load: Load 4 random news cards when the page opens
+        // Initial Load
         window.addEventListener('DOMContentLoaded', () => {
             loadMoreNews(4);
         });
 
-        // 2. Infinite Scroll Logic using IntersectionObserver
+        // Infinite Scroll Logic
         const observerOptions = {
-            root: null, // use the viewport
+            root: null, 
             rootMargin: '0px',
-            threshold: 0.1 // trigger when 10% of the loader is visible
+            threshold: 0.1 
         };
 
         const observer = new IntersectionObserver((entries) => {
             const entry = entries[0];
-            // If user scrolled to the bottom (loader is visible)
             if (entry.isIntersecting) {
-                // Add a small delay to simulate network loading feeling
                 setTimeout(() => {
-                    loadMoreNews(3); // Load 3 new random items
+                    loadMoreNews(3);
                 }, 800);
             }
         }, observerOptions);
 
-        // Start observing the loader at the bottom
         observer.observe(loadingTrigger);
 
     </script>
