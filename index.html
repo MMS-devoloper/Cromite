@@ -1,634 +1,550 @@
-<!doctype html>
-<html lang="bn">  
-<head>  
-<meta charset="utf-8">  
-<meta name="viewport" content="width=device-width,initial-scale=1">  
-<title>New tab</title>  
-<style>  
-/* Root variables */
-:root {
-  --bg: #0f1724;
-  --card: rgba(255, 255, 255, 0.06);
-  --muted: rgba(255, 255, 255, 0.65);
-  --accent: rgba(99, 102, 241, 0.9);
-  color: #e6eef8;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Mobile New Tab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500&display=swap');
 
-/* Body Design */
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: linear-gradient(180deg, #071124 0%, var(--bg) 100%);
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
-  overflow-x: hidden;
-  color: var(--color);
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-/* লোগো + হ্যালো */
-.logo-wrap{ position:relative; width:min(54vmin,240px); aspect-ratio:1/1.15; margin:8px auto 0; }  
-.halo{ position:absolute; inset:0; border-radius:32px; background:radial-gradient(60% 60% at 50% 40%, var(--blue,.10), transparent 70%); filter:blur(10px); animation: haloGlow 2s ease-in-out infinite alternate; }  
-.logo{ position:relative; width:100%; height:100%; object-fit:contain; z-index:1; filter: drop-shadow(0 18px 28px rgba(0,0,0,.18)) drop-shadow(0 3px 8px rgba(30,136,255,.25)); animation: float 2.25s ease-in-out infinite; }  
-@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.5deg)}}  
+        body {
+            background-color: #000;
+            color: #e3e3e3;
+            display: flex;
+            justify-content: center;
+        }
 
-@keyframes haloGlow {  
-  0%,100% { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.05), transparent 70%); }
-  5%   { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.07), transparent 70%); }
-  10%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.09), transparent 70%); }
-  15%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.11), transparent 70%); }
-  20%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.13), transparent 70%); }
-  25%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.15), transparent 70%); }
-  30%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.17), transparent 70%); }
-  35%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.19), transparent 70%); }
-  40%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.21), transparent 70%); }
-  45%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.23), transparent 70%); }
-  50%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.25), transparent 70%); }
-  55%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.23), transparent 70%); }
-  60%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.21), transparent 70%); }
-  65%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.19), transparent 70%); }
-  70%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.17), transparent 70%); }
-  75%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.15), transparent 70%); }
-  80%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.13), transparent 70%); }
-  85%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.11), transparent 70%); }
-  90%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.09), transparent 70%); }
-  95%  { background: radial-gradient(60% 60% at 50% 40%, rgba(30,136,255,0.07), transparent 70%); }
-}  
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            background-color: #1a1a1c;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
 
-.title{ 
-  margin-top:16px;
-  font-weight:800;
-  letter-spacing:.08em;
-  text-transform:lowercase;
-  font-size:clamp(22px,4.5vmin,32px);
-  text-shadow:0 1px 0 rgba(255,255,255,.7),0 6px 18px rgba(30,136,255,.18);
-  color:#ffffff; /* ফুল সাদা */
-}  
+        /* Top Navigation */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+        }
 
-.search{ margin:18px auto 10px; width:min(640px,92vw); display:flex; gap:8px; position:relative; }  
-.search input{
-  flex:1;
-  font-size:16px;
-  padding:14px 14px;
-  border-radius:16px;
-  border:1px solid #2a3448;
-  background:#1b2535;      /* ডার্ক ব্যাকগ্রাউন্ড */
-  color:#ffffff;            /* লেখা সাদা */
-  outline:none;
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
-}
-.search button{
-  padding:12px 16px;
-  border-radius:14px;
-  border:0;
-  cursor:pointer;
-  font-weight:700;
-  background:linear-gradient(180deg,#2c98ff,#1876ff);
-  color:white;
-  box-shadow:0 10px 20px rgba(30,136,255,.35);
-  transition: transform 0.15s ease;
-}
-.search button:active, .tile:active { transform: scale(1.1); }  
+        .nav-left svg, .nav-right svg {
+            fill: #e3e3e3;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
 
-/* suggestion box */
-.suggestions {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 8px);
-  margin: 0;
-  padding: 6px;
-  list-style: none;
-  background: linear-gradient(180deg, rgba(30,35,50,0.98), rgba(20,24,36,0.98));
-  border-radius: 12px;
-  border: 1px solid rgba(60,72,96,0.6);
-  max-height: 260px;
-  overflow: auto;
-  box-shadow: 0 10px 30px rgba(3,10,22,0.6);
-  z-index: 40;
-}
-.suggestions li{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  padding:8px 10px;
-  color:#e6eef8;
-  cursor:pointer;
-  border-radius:8px;
-}
-.suggestions li:hover, .suggestions li.active {
-  background: rgba(255,255,255,0.03);
-}
-.suggestions li .num { opacity:0.6; font-size:12px; width:28px; text-align:center; }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
 
-/* grid & tiles */
-.grid{ margin:18px auto 0; width:min(760px,96vw); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }  
-@media (min-width:520px){ .grid{ grid-template-columns:repeat(6,1fr); } }  
+        .profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: url('https://picsum.photos/50') center/cover;
+            cursor: pointer;
+        }
 
-.tile{ 
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  text-decoration:none;
-  color:#e6eef8;
-  padding:12px 8px;
-  border-radius:18px;
-  background:#1b2535;
-  border:1px solid #2a3448;
-  box-shadow:0 8px 20px rgba(0,0,0,.25);
-  transition: transform 0.15s ease, background .3s;
-}
-.tile:hover{ background:#253045; }
+        .tab-count {
+            border: 2px solid #e3e3e3;
+            border-radius: 6px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.badge{
-  width:42px;height:42px;border-radius:50%;
-  display:grid;place-items:center;
-  font-weight:800;
-  border:1px solid #3a4560;
-  box-shadow:inset 0 0 0 6px #2b364b;
-  background:#101726;
-  color:#fff;
-}
-.tile small{opacity:.7}
-.g{background:transparent}
+        /* Logo */
+        .logo-container {
+            text-align: center;
+            margin: 30px 0 24px;
+        }
 
-/* ====== ADDED: Login button styles ====== */
-.topbar {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  z-index: 100;
-}
-.login-btn {
-  background: linear-gradient(180deg, #2c98ff, #1876ff);
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(30,136,255,0.4);
-  transition: all 0.18s ease;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 14px;
-}
-.login-btn:hover { transform: scale(1.04); }
-.login-btn:active { transform: scale(0.96); }
+        .logo-container h1 {
+            font-family: 'Product Sans', sans-serif;
+            font-size: 42px;
+            font-weight: 500;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
 
-/* ====== Modal for delete confirmation (added) ====== */
-#deleteModal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  background: rgba(2,6,23,0.55);
-}
-#deleteModal .modal-card {
-  width: min(92vw, 420px);
-  background: linear-gradient(180deg, #0f1728, #081224);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px;
-  padding: 16px;
-  color: #e6eef8;
-  box-shadow: 0 10px 40px rgba(1,6,20,0.7);
-  text-align: left;
-}
-#deleteModal .modal-title {
-  font-weight: 700;
-  margin-bottom: 8px;
-  font-size: 16px;
-}
-#deleteModal .modal-body {
-  margin-bottom: 14px;
-  font-size: 15px;
-  line-height: 1.4;
-}
-#deleteModal .modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
-.btn-danger {
-  background: #ef4444; /* red */
-  color: #fff;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 700;
-}
-.btn-cancel {
-  background: #16a34a; /* green */
-  color: #fff;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 700;
-}
+        /* Search Bar */
+        .search-wrapper {
+            padding: 0 16px;
+            margin-bottom: 12px;
+        }
 
-/* small responsive tweak for modal */
-@media (max-width:420px){
-  #deleteModal .modal-card { padding: 12px; }
-  #deleteModal .modal-actions { justify-content: space-between; }
-}
-</style>  
-</head>  
-<body>  
+        .search-bar {
+            background-color: #36373a;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            gap: 12px;
+        }
 
-<!-- ====== ADDED: top-right login button ====== -->
-<header class="topbar" aria-hidden="false">
-  <button id="loginBtn" class="login-btn" type="button">Login</button>
-</header>
+        .search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+        }
 
-<main class="wrap" role="main" aria-label="mmszone home">  
-  <div class="logo-wrap" aria-hidden="true">  
-    <div class="halo"></div>  
-    <img class="logo" src="mmszone-logo.png" alt="mmszone logo">  
-  </div>  
-  <div class="title">Kiwi browser</div>  
+        .search-bar input::placeholder {
+            color: #c4c7c5;
+        }
 
-  <form id="searchForm" class="search" action="https://www.google.com/search" method="get" autocomplete="off" role="search">
-    <input id="q" name="q" type="text" placeholder="Search URL or web on Google…" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-controls="suggestionsList">
-    <button type="submit">Search</button>
+        .search-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #c4c7c5;
+            cursor: pointer;
+        }
 
-    <!-- suggestion list -->
-    <ul id="suggestionsList" class="suggestions" role="listbox" hidden></ul>
-  </form>
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
 
-<section class="grid" aria-label="Quick links">  
-  <a class="tile" href="https://www.google.com/" target="_self">  
-    <div class="badge g">
-      <img src="https://www.google.com/favicon.ico" alt="Google" width="24" height="24">
+        .action-btn {
+            flex: 1;
+            background-color: #36373a;
+            padding: 14px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #e3e3e3;
+            cursor: pointer;
+        }
+
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #e3e3e3;
+        }
+
+        /* Shortcuts */
+        .shortcuts-container {
+            background-color: #202124;
+            border-radius: 24px;
+            margin: 0 16px 16px;
+            padding: 16px 8px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .shortcuts-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .shortcut {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 68px;
+            cursor: pointer;
+        }
+
+        .shortcut-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background-color: #36373a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shortcut-text {
+            font-size: 12px;
+            color: #c4c7c5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Chrome Tips */
+        .tips-card {
+            background-color: #202124;
+            border-radius: 24px;
+            margin: 0 16px 16px;
+            padding: 16px 20px 20px;
+        }
+
+        .tips-header {
+            font-size: 13px;
+            color: #c4c7c5;
+            margin-bottom: 16px;
+        }
+
+        .tips-body {
+            display: flex;
+            gap: 16px;
+        }
+
+        .tips-graphic {
+            width: 70px;
+            height: 70px;
+            background-color: #2b3950;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .tips-graphic::before, .tips-graphic::after {
+            content: '→';
+            position: absolute;
+            color: #7baaf7;
+            font-size: 12px;
+        }
+        .tips-graphic::before { left: 8px; transform: scaleX(-1); }
+        .tips-graphic::after { right: 8px; }
+
+        .tips-graphic .phone-mock {
+            width: 24px;
+            height: 40px;
+            border: 2px solid #a8c7fa;
+            border-radius: 6px;
+        }
+
+        .tips-content h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #e3e3e3;
+        }
+
+        .tips-content p {
+            font-size: 13px;
+            color: #9aa0a6;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .tips-content button {
+            background-color: #a8c7fa;
+            color: #062e6f;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            float: right;
+            cursor: pointer;
+        }
+
+        /* News Feed (Discover Section) */
+        .discover-section {
+            background-color: #202124;
+            border-radius: 24px 24px 0 0;
+            margin: 0 16px;
+            padding-top: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #3c4043;
+            cursor: pointer;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-text {
+            flex: 1;
+        }
+
+        .news-text h3 {
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #e3e3e3;
+            margin-bottom: 12px;
+        }
+
+        .news-footer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .source-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .news-thumbnail {
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
+            background-color: #36373a;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        /* Loader */
+        .loader-container {
+            padding: 20px;
+            text-align: center;
+            color: #9aa0a6;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #9aa0a6;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <!-- Top Nav -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </div>
+            <div class="nav-right">
+                <div class="profile-pic"></div>
+                <div class="tab-count">1</div>
+                <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
+        </header>
+
+        <!-- Logo -->
+        <div class="logo-container">
+            <h1>Google</h1>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+            <div class="search-bar">
+                <svg viewBox="0 0 24 24" width="22" height="22">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                <input type="text" placeholder="Search Google or type...">
+                <div class="search-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                </div>
+                <div class="search-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 8h-1V6c0-1.1-.9-2-2-2h-3v2h3v2h-1c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm-1 8h-3v-6h3v6zm-7-2H8v-2h3V9H8V7h3V5H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3v-1zm-3-3H6v-2h2v2z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <div class="action-btn">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 10h-2v2h-2v-2h-2v-2h2V9h2v2h2v2z"/></svg>
+                AI Mode
+            </div>
+            <div class="action-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                Incognito
+            </div>
+        </div>
+
+        <!-- Shortcuts -->
+        <div class="shortcuts-container">
+            <div class="shortcut">
+                <div class="shortcut-icon" style="background:#1877F2; font-size: 28px;">f</div>
+                <div class="shortcut-text">Facebook</div>
+            </div>
+            <div class="shortcut">
+                <div class="shortcut-icon" style="background:#282828;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="red"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                </div>
+                <div class="shortcut-text">YouTube</div>
+            </div>
+            <div class="shortcut">
+                <div class="shortcut-icon" style="background:#009270; font-size: 18px;">cb</div>
+                <div class="shortcut-text">Cricbuzz.c...</div>
+            </div>
+            <div class="shortcut">
+                <div class="shortcut-icon" style="background:#000;">
+                    <div style="width: 24px; height: 24px; background: #00B1FF; border-radius: 4px;"></div>
+                </div>
+                <div class="shortcut-text">ESPNcricinfo</div>
+            </div>
+            <div class="shortcut">
+                <div class="shortcut-icon" style="background:#36373A;">B</div>
+                <div class="shortcut-text">Bikroy</div>
+            </div>
+        </div>
+
+        <!-- Chrome Tips -->
+        <div class="tips-card">
+            <div class="tips-header">Chrome tips</div>
+            <div class="tips-body">
+                <div class="tips-graphic">
+                    <div class="phone-mock"></div>
+                </div>
+                <div class="tips-content">
+                    <h3>Choose address bar position</h3>
+                    <p>Switch the position to customize your ...</p>
+                    <button>Go to settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Feed Section (Discover) -->
+        <div class="discover-section" id="news-feed">
+            <!-- News items will be generated here by JavaScript -->
+        </div>
+        
+        <!-- Loading Indicator (Triggers the infinite scroll) -->
+        <div class="loader-container" id="loading-trigger">
+            <div class="spinner"></div>
+            Loading more...
+        </div>
+
     </div>
-    <div>Google</div><small>google.com</small>  
-  </a>  
 
- <a class="tile" href="https://m.youtube.com/" target="_self">    
-  <div class="badge g" style="display:flex; align-items:center; justify-content:center;">  
-    <img src="https://static.vecteezy.com/system/resources/previews/047/580/461/non_2x/youtube-popular-social-media-logo-free-png.png" alt="YouTube" width="36" height="36">  
-  </div>  
-  <div>YouTube</div><small>youtube.com</small>    
-</a>
+    <!-- JavaScript for Infinite Scroll and Dynamic Content -->
+    <script>
+        // Dummy data for generating random news
+        const newsDatabase = [
+            { title: "'No sign of survivors' at Chinese border crossing as Nepal flooding death toll rises", source: "CNN", time: "2h", color: "#CC0000" },
+            { title: "Tech giant unveils new AI model capable of understanding complex human emotions", source: "The Verge", time: "5h", color: "#E0245E" },
+            { title: "Bangladesh wins the final match against Australia in a thrilling finish", source: "ESPNcricinfo", time: "1h", color: "#00B1FF" },
+            { title: "Global stock markets see a massive surge following tech earnings report", source: "Bloomberg", time: "3h", color: "#28C840" },
+            { title: "New James Webb Telescope image reveals galaxy forming at the dawn of time", source: "Space.com", time: "7h", color: "#1D237A" },
+            { title: "Upcoming smartphone leaks suggest a massive 200MP camera upgrade", source: "TechRadar", time: "45m", color: "#FF8C00" },
+            { title: "Scientists discover new bioluminescent species deep in the Pacific Ocean", source: "National Geographic", time: "6h", color: "#FFD700" },
+            { title: "Local chef wins international culinary award for innovative fusion dishes", source: "Food Network", time: "12h", color: "#DC143C" }
+        ];
 
-  <a class="tile" href="https://m.facebook.com/" target="_self">  
-    <div class="badge g">
-      <img src="https://www.facebook.com/favicon.ico" alt="Facebook" width="24" height="24">
-    </div>
-    <div>Facebook</div><small>facebook.com</small>  
-  </a>    
+        const newsFeedContainer = document.getElementById('news-feed');
+        const loadingTrigger = document.getElementById('loading-trigger');
 
-  <a class="tile" href="https://web.whatsapp.com/" target="_self">  
-    <div class="badge g">
-      <img src="https://static.whatsapp.net/rsrc.php/v3/yP/r/rYZqPCBaG70.png" alt="WhatsApp" width="24" height="24">
-    </div>
-    <div>WhatsApp</div><small>web.whatsapp.com</small>  
-  </a>  
+        // Function to get a random item from array
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
 
-  <a class="tile" href="https://mail.google.com/" target="_self">  
-    <div class="badge g">
-      <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" alt="Gmail" width="24" height="24">
-    </div>
-    <div>Gmail</div><small>mail.google.com</small>  
-  </a>  
+        // Function to create a single news card HTML element
+        function createNewsCard() {
+            const news = getRandomItem(newsDatabase);
+            const randomImageId = Math.floor(Math.random() * 1000); // For random images on every load
+            
+            const card = document.createElement('div');
+            card.className = 'news-item';
+            
+            card.innerHTML = `
+                <div class="news-text">
+                    <h3>${news.title}</h3>
+                    <div class="news-footer">
+                        <span class="source-icon" style="background-color: ${news.color}"></span>
+                        <span style="font-size: 12px; color: #9aa0a6;">${news.source} · ${news.time}</span>
+                    </div>
+                </div>
+                <div class="news-thumbnail" style="background-image: url('https://picsum.photos/120/120?random=${randomImageId}')"></div>
+            `;
+            
+            return card;
+        }
 
-  <a class="tile" href="https://bn.m.wikipedia.org/" target="_self">  
-    <div class="badge g">
-      <img src="https://bn.m.wikipedia.org/favicon.ico" alt="Wikipedia" width="24" height="24">
-    </div>
-    <div>Wikipedia</div><small>wikipedia.org</small>  
-  </a>  
+        // Function to load multiple news items at once
+        function loadMoreNews(count = 3) {
+            for (let i = 0; i < count; i++) {
+                const newCard = createNewsCard();
+                newsFeedContainer.appendChild(newCard);
+            }
+        }
 
+        // 1. Initial Load: Load 4 random news cards when the page opens
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMoreNews(4);
+        });
 
-  <a class="tile" href="javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/eruda';document.body.appendChild(s);s.onload=function(){eruda.init();};})();" target="_self">  
-  <div class="badge g">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368">
-      <path d="M19.14,12.94a7.14,7.14,0,0,0,0-1.88l2.11-1.65a.5.5,0,0,0,.12-.65l-2-3.46a.5.5,0,0,0-.61-.22l-2.49,1a6.89,6.89,0,0,0-1.63-.95l-.38-2.65A.5.5,0,0,0,13.78,2H10.22a.5.5,0,0,0-.5.43L9.34,5.08a6.89,6.89,0,0,0-1.63.95l-2.49-1a.5.5,0,0,0-.61.22l-2,3.46a.5.5,0,0,0,.12.65L4.86,11.06a7.14,7.14,0,0,0,0,1.88l-2.11,1.65a.5.5,0,0,0-.12.65l2,3.46a.5.5,0,0,0,.61.22l2.49-1a6.89,6.89,0,0,0,1.63.95l.38,2.65a.5.5,0,0,0,.5.43h3.56a.5.5,0,0,0,.5-.43l.38-2.65a6.89,6.89,0,0,0,1.63-.95l2.49,1a.5.5,0,0,0,.61-.22l2-3.46a.5.5,0,0,0-.12-.65Zm-7.14,2.56A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/>
-    </svg>
-  </div>
-  <div>Tools</div>
-  <small>DevTools</small>  
-</a>
-
-</section>
-</main>  
-
-<!-- Delete confirmation modal (added) -->
-<div id="deleteModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="deleteModalTitle">
-  <div class="modal-card" role="document">
-    <div class="modal-title" id="deleteModalTitle">Confirm delete</div>
-    <div class="modal-body" id="deleteModalBody">
-      <!-- message will be injected -->
-      can you delete this "<span id="modalHistoryName"></span>"
-    </div>
-    <div class="modal-actions">
-      <button id="confirmDeleteBtn" class="btn-danger" type="button">Yes</button>
-      <button id="cancelDeleteBtn" class="btn-cancel" type="button">No</button>
-    </div>
-  </div>
-</div>
-
-<!-- ================== 🔍 Combined LocalStorage + Google Suggestions ================== -->
-<script>
-(function(){
-  const input = document.getElementById('q');
-  const form = document.getElementById('searchForm');
-  const sugList = document.getElementById('suggestionsList');
-
-  let debounceTimer = null;
-  let lastCallbackName = null;
-  let activeIndex = -1;
-
-  // LocalStorage history
-  function getHistory(){
-    try { return JSON.parse(localStorage.getItem('searchHistory') || '[]'); }
-    catch(e) { return []; }
-  }
-  function saveHistory(term){
-    if(!term.trim()) return;
-    let history = getHistory().filter(x => x.toLowerCase() !== term.toLowerCase());
-    history.unshift(term);
-    if(history.length > 20) history = history.slice(0,20);
-    localStorage.setItem('searchHistory', JSON.stringify(history));
-  }
-  function removeFromHistory(term){
-    try{
-      const history = getHistory().filter(x => x.toLowerCase() !== term.toLowerCase());
-      localStorage.setItem('searchHistory', JSON.stringify(history));
-    }catch(e){}
-  }
-
-  // Escape HTML for safety
-  function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-  // Clear suggestions
-  function clearSuggestions(){
-    sugList.innerHTML = '';
-    sugList.hidden = true;
-    activeIndex = -1;
-  }
-
-  // Merge and show suggestions (local + Google)
-  function showSuggestions(list){
-    sugList.innerHTML = '';
-    if(!list.length){ clearSuggestions(); return; }
-
-    list.forEach((text, i) => {
-      const li = document.createElement('li');
-      li.setAttribute('role','option');
-      li.dataset.index = i;
-      li.innerHTML = '<span class="num">'+(i+1)+'</span><span class="txt">'+escapeHtml(text)+'</span>';
-      li.addEventListener('click', ()=>{
-        input.value = text;
-        clearSuggestions();
-        form.submit();
-      });
-
-      // Long-press handling for delete confirmation
-      (function attachLongPressHandlers(item, value){
-        let pressTimer = null;
-        const longPressDuration = 600; // ms
-
-        const startPress = (e) => {
-          // ignore right-click and such
-          if (e.type === 'mousedown' && e.button !== 0) return;
-          pressTimer = setTimeout(()=> {
-            openDeleteModal(value, item);
-          }, longPressDuration);
+        // 2. Infinite Scroll Logic using IntersectionObserver
+        const observerOptions = {
+            root: null, // use the viewport
+            rootMargin: '0px',
+            threshold: 0.1 // trigger when 10% of the loader is visible
         };
-        const cancelPress = () => {
-          if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
-        };
 
-        item.addEventListener('touchstart', startPress, {passive:true});
-        item.addEventListener('touchend', cancelPress);
-        item.addEventListener('touchmove', cancelPress);
-        item.addEventListener('mousedown', startPress);
-        item.addEventListener('mouseup', cancelPress);
-        item.addEventListener('mouseleave', cancelPress);
-        // prevent context menu on long-press for nicer UX
-        item.addEventListener('contextmenu', (ev)=>{ ev.preventDefault(); }, {passive:false});
-      })(li, text);
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            // If user scrolled to the bottom (loader is visible)
+            if (entry.isIntersecting) {
+                // Add a small delay to simulate network loading feeling
+                setTimeout(() => {
+                    loadMoreNews(3); // Load 3 new random items
+                }, 800);
+            }
+        }, observerOptions);
 
-      sugList.appendChild(li);
-    });
-    sugList.hidden = false;
-  }
+        // Start observing the loader at the bottom
+        observer.observe(loadingTrigger);
 
-  // Keyboard navigation
-  function updateActive(items){
-    items.forEach(it => it.classList.remove('active'));
-    if(activeIndex >=0 && items[activeIndex]) {
-      items[activeIndex].classList.add('active');
-      items[activeIndex].scrollIntoView({block:'nearest'});
-    }
-  }
-  input.addEventListener('keydown', function(e){
-    const items = sugList.querySelectorAll('li');
-    if(sugList.hidden) return;
-
-    if(e.key==='ArrowDown'){ e.preventDefault(); activeIndex=Math.min(activeIndex+1, items.length-1); updateActive(items); }
-    else if(e.key==='ArrowUp'){ e.preventDefault(); activeIndex=Math.max(activeIndex-1,0); updateActive(items); }
-    else if(e.key==='Enter'){ 
-      if(activeIndex>=0 && items[activeIndex]) { e.preventDefault(); input.value=items[activeIndex].querySelector('.txt').textContent; clearSuggestions(); form.submit(); }
-    }
-    else if(e.key==='Escape'){ clearSuggestions(); }
-  });
-
-  // JSONP Google suggestions
-  function requestGoogleSuggestions(query){
-    if(!query || !query.trim()){ return; }
-
-    const cbName = 'gs_cb_'+Date.now()+'_'+Math.floor(Math.random()*1000);
-    lastCallbackName = cbName;
-
-    window[cbName] = function(data){
-      let googleSugs = (Array.isArray(data) && Array.isArray(data[1])) ? data[1] : [];
-      // Merge with local suggestions (remove duplicates)
-      const localSugs = getHistory().filter(t => t.toLowerCase().includes(query.toLowerCase()));
-      const merged = [...new Set([...localSugs, ...googleSugs])].slice(0,20);
-      showSuggestions(merged);
-
-      // cleanup
-      try{ delete window[cbName]; } catch(e){ window[cbName]=undefined; }
-      if(scriptEl && scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
-    };
-
-    const scriptEl = document.createElement('script');
-    scriptEl.src = 'https://www.google.com/complete/search?client=firefox&callback='+cbName+'&q='+encodeURIComponent(query);
-    document.body.appendChild(scriptEl);
-  }
-
-  // Debounce input
-  function debounce(fn,delay){ return function(...args){ clearTimeout(debounceTimer); debounceTimer=setTimeout(()=>fn.apply(this,args),delay); } }
-  const debouncedRequest = debounce(()=>{ requestGoogleSuggestions(input.value.trim()); }, 180);
-
-  // Input event
-  input.addEventListener('input', ()=>{
-    activeIndex=-1;
-    debouncedRequest();
-  });
-
-  // Form submit saves to local
-  form.addEventListener('submit', ()=>{
-    saveHistory(input.value.trim());
-  });
-
-  // Click outside closes suggestions
-  document.addEventListener('click', (e)=>{
-    if(!form.contains(e.target)) clearSuggestions();
-  });
-
-  // ====== Delete modal logic (added) ======
-  const deleteModal = document.getElementById('deleteModal');
-  const modalHistoryName = document.getElementById('modalHistoryName');
-  const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-  const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-
-  let currentDeletingValue = null;
-  let currentDeletingLi = null;
-
-  function openDeleteModal(value, liElement){
-    currentDeletingValue = value;
-    currentDeletingLi = liElement;
-    modalHistoryName.textContent = value;
-    deleteModal.style.display = 'flex';
-    deleteModal.setAttribute('aria-hidden','false');
-
-    // focus the cancel button for safety / keyboard
-    cancelDeleteBtn.focus();
-  }
-
-  function closeDeleteModal(){
-    currentDeletingValue = null;
-    currentDeletingLi = null;
-    deleteModal.style.display = 'none';
-    deleteModal.setAttribute('aria-hidden','true');
-  }
-
-  confirmDeleteBtn.addEventListener('click', ()=>{
-    if(!currentDeletingValue) { closeDeleteModal(); return; }
-    // Remove from local storage history if present
-    removeFromHistory(currentDeletingValue);
-
-    // Remove the li from suggestions UI if present
-    if(currentDeletingLi && currentDeletingLi.parentNode){
-      currentDeletingLi.parentNode.removeChild(currentDeletingLi);
-    } else {
-      // fallback: rebuild suggestions from current input
-      const query = input.value.trim();
-      if(query) requestGoogleSuggestions(query);
-      else clearSuggestions();
-    }
-
-    closeDeleteModal();
-  });
-
-  cancelDeleteBtn.addEventListener('click', ()=>{
-    closeDeleteModal();
-  });
-
-  // Close modal on outside click
-  deleteModal.addEventListener('click', (e)=>{
-    if(e.target === deleteModal) closeDeleteModal();
-  });
-
-  // Close on Escape
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape' && deleteModal.style.display === 'flex') closeDeleteModal();
-  });
-
-})();
-</script>
-
-<!-- ====== Firebase Google Login (module) ====== -->
-<script type="module">
-  // Firebase JS SDK v10 (module)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } 
-    from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-
-  // তোমার Firebase project config
-  const firebaseConfig = {
-    apiKey: "AIzaSyD7sZQDSeGYRmXj1v2MD8OB4OtpxZNgY9Q",
-    authDomain: "kiwi-brower-user.firebaseapp.com",
-    projectId: "kiwi-brower-user",
-    storageBucket: "kiwi-brower-user.firebasestorage.app",
-    messagingSenderId: "221131749871",
-    appId: "1:221131749871:web:8ea207da21e9b7aec3de1a",
-    measurementId: "G-Z6P6NNLX64"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  const loginBtn = document.getElementById('loginBtn');
-
-  // ক্লিক করলে লগইন বা লগআউট
-  loginBtn.addEventListener('click', async () => {
-    const user = auth.currentUser;
-    try {
-      if (user) {
-        await signOut(auth);
-      } else {
-        await signInWithPopup(auth, provider);
-      }
-    } catch (err) {
-      console.error('Auth error:', err);
-      alert('Login failed: ' + (err.message || err));
-    }
-  });
-
-  // লগইন স্টেট অনুযায়ী বাটনের টেক্সট পরিবর্তন
-  onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const name = user.displayName || user.email || 'User';
-    const photo = user.photoURL;
-
-    loginBtn.innerHTML = `
-      <img src="${photo}" alt="${name}" 
-           style="
-             width:36px;
-             height:36px;
-             border-radius:50%;
-             object-fit:cover;
-             display:block;
-             border:2px solid rgba(255,255,255,0.5);
-             box-shadow:0 0 8px rgba(0,0,0,0.3);
-           ">
-    `;
-    loginBtn.style.background = 'transparent';
-    loginBtn.style.padding = '0';
-    loginBtn.style.border = 'none';
-    loginBtn.title = name;
-
-    // ক্লিক করলে লগআউট
-    loginBtn.onclick = async () => {
-      try { await signOut(auth); } 
-      catch (err) { alert('Logout failed: ' + err.message); }
-    };
-  } else {
-    // লগআউট বা লগইন না থাকলে আগের মতো Login বাটন দেখাবে
-    loginBtn.textContent = 'Login';
-    loginBtn.style.background = 'linear-gradient(180deg, #2c98ff, #1876ff)';
-    loginBtn.style.border = 'none';
-    loginBtn.style.padding = '10px 14px';
-    loginBtn.title = '';
-    loginBtn.onclick = async () => {
-      try { await signInWithPopup(auth, provider); } 
-      catch (err) { alert('Login failed: ' + err.message); }
-    };
-  }
-});
-</script>
-
+    </script>
 </body>
 </html>
