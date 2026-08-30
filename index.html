@@ -34,7 +34,7 @@
             padding-top: 10px;
         }
 
-        /* --- Click Animations (Touch Feedback) --- */
+        /* --- Click Animations --- */
         .search-icon:active, .action-btn:active, 
         .shortcut:active, .tips-content button:active, 
         .news-item:active {
@@ -137,7 +137,6 @@
 
         /* Shortcuts */
         .shortcuts-container {
-            background-color: #202124;
             border-radius: 24px;
             margin: 0 16px 16px;
             padding: 16px 8px;
@@ -186,18 +185,48 @@
             text-align: center;
         }
 
-        /* Chrome Tips */
+        /* --- Carousel / Tips Section --- */
+        .carousel-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            width: 100%;
+            scroll-behavior: smooth;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            padding: 0 16px;
+        }
+
         .tips-card {
             background-color: #202124;
             border-radius: 24px;
-            margin: 0 16px 16px;
             padding: 16px 20px 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .tips-header {
             font-size: 13px;
             color: #c4c7c5;
             margin-bottom: 16px;
+            font-weight: 500;
         }
 
         .tips-body {
@@ -217,20 +246,33 @@
             position: relative;
         }
 
+        .tips-graphic.security-badge {
+            background-color: #1e2a44;
+        }
+        
+        .tips-graphic.safety-key {
+            background-color: #36373a;
+            border-radius: 20px;
+        }
+
+        /* Icons */
         .tips-graphic::before, .tips-graphic::after {
-            content: '→';
             position: absolute;
             color: #7baaf7;
             font-size: 12px;
         }
-        .tips-graphic::before { left: 8px; transform: scaleX(-1); }
-        .tips-graphic::after { right: 8px; }
+        .icon-arrows::before { content: '→'; left: 8px; transform: scaleX(-1); }
+        .icon-arrows::after { content: '→'; right: 8px; }
 
-        .tips-graphic .phone-mock {
+        .phone-mock {
             width: 24px;
             height: 40px;
             border: 2px solid #a8c7fa;
             border-radius: 6px;
+        }
+
+        .tips-content {
+            flex: 1;
         }
 
         .tips-content h3 {
@@ -255,9 +297,33 @@
             border-radius: 20px;
             font-weight: 500;
             font-size: 14px;
-            float: right;
             cursor: pointer;
             outline: none;
+            display: inline-block;
+        }
+        
+        .align-right {
+            text-align: right;
+        }
+
+        /* Carousel Indicator Dots */
+        .carousel-dots {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 5px;
+            height: 5px;
+            background-color: #5f6368;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #e3e3e3;
         }
 
         /* News Feed (Discover Section) */
@@ -398,7 +464,7 @@
             </a>
             <a href="https://cricbuzz.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#009270; font-size: 18px;">cb</div>
-                <div class="shortcut-text">Cricbuzz</div>
+                <div class="shortcut-text">Cricbuzz.c...</div>
             </a>
             <a href="https://espncricinfo.com" target="_blank" class="shortcut">
                 <div class="shortcut-icon" style="background:#000;">
@@ -412,17 +478,88 @@
             </a>
         </div>
 
-        <div class="tips-card">
-            <div class="tips-header">Chrome tips</div>
-            <div class="tips-body">
-                <div class="tips-graphic">
-                    <div class="phone-mock"></div>
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="tips-track">
+                
+                <div class="carousel-slide">
+                    <div class="tips-card">
+                        <div class="tips-header">Chrome tips</div>
+                        <div class="tips-body">
+                            <div class="tips-graphic icon-arrows">
+                                <div class="phone-mock"></div>
+                            </div>
+                            <div class="tips-content">
+                                <h3>Choose address bar position</h3>
+                                <p>Switch the position to customize your ...</p>
+                                <div class="align-right">
+                                    <button onclick="alert('Opening settings...')">Go to settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="tips-content">
-                    <h3>Choose address bar position</h3>
-                    <p>Switch the position to customize your ...</p>
-                    <button onclick="alert('Opening Chrome Settings...')">Go to settings</button>
+
+                <div class="carousel-slide">
+                    <div class="tips-card">
+                        <div class="tips-header">Chrome tips</div>
+                        <div class="tips-body">
+                            <div class="tips-graphic security-badge">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="#a8c7fa"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            </div>
+                            <div class="tips-content">
+                                <h3>Browse across devices</h3>
+                                <p>Get your history on all your devices, so you can easily pick up where you left off</p>
+                                <div class="align-right">
+                                    <button onclick="alert('Syncing devices...')">Let's go</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="carousel-slide">
+                    <div class="tips-card">
+                        <div class="tips-header">Chrome tips</div>
+                        <div class="tips-body">
+                            <div class="tips-graphic security-badge">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="#a8c7fa"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            </div>
+                            <div class="tips-content">
+                                <h3>Enhance your security</h3>
+                                <p>Get Chrome's strongest protection against online threats</p>
+                                <div class="align-right">
+                                    <button onclick="alert('Opening settings...')">Go to settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="tips-card">
+                        <div class="tips-header">Safety Check</div>
+                        <div class="tips-body">
+                            <div class="tips-graphic safety-key">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#a8c7fa"><path d="M12.65 10A5.99 5.99 0 007 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 005.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                            </div>
+                            <div class="tips-content">
+                                <h3>Change passwords</h3>
+                                <p>Found 1 compromised password</p>
+                                <div class="align-right">
+                                    <button onclick="alert('Opening password manager...')">Change passwords</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
 
@@ -437,7 +574,27 @@
     </div>
 
     <script>
-        // Google Search Functionality
+        // --- Carousel Logic for updating dots ---
+        const track = document.getElementById('tips-track');
+        const dots = document.querySelectorAll('.dot');
+
+        track.addEventListener('scroll', () => {
+            // Calculate which slide is currently in view
+            const scrollPosition = track.scrollLeft;
+            const slideWidth = track.clientWidth;
+            const currentIndex = Math.round(scrollPosition / slideWidth);
+
+            // Update active dot
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        });
+
+        // --- Google Search Functionality ---
         function performSearch(event) {
             event.preventDefault(); 
             const query = document.getElementById('searchInput').value;
@@ -446,16 +603,14 @@
             }
         }
 
-        // Dummy data for generating random news
+        // --- Dummy data for generating random news ---
         const newsDatabase = [
             { title: "'No sign of survivors' at Chinese border crossing as Nepal flooding death toll rises", source: "CNN", time: "2h", color: "#CC0000" },
-            { title: "Tech giant unveils new AI model capable of understanding complex human emotions", source: "The Verge", time: "5h", color: "#E0245E" },
-            { title: "Bangladesh wins the final match against Australia in a thrilling finish", source: "ESPNcricinfo", time: "1h", color: "#00B1FF" },
+            { title: "In wake of devastating floods, Pope sends aid to Nepal", source: "Catholic News", time: "5h", color: "#E0245E" },
+            { title: "US Bishop calls on international community to assist victims of Nepal...", source: "Global News", time: "1h", color: "#00B1FF" },
             { title: "Global stock markets see a massive surge following tech earnings report", source: "Bloomberg", time: "3h", color: "#28C840" },
             { title: "New James Webb Telescope image reveals galaxy forming at the dawn of time", source: "Space.com", time: "7h", color: "#1D237A" },
-            { title: "Upcoming smartphone leaks suggest a massive 200MP camera upgrade", source: "TechRadar", time: "45m", color: "#FF8C00" },
-            { title: "Scientists discover new bioluminescent species deep in the Pacific Ocean", source: "National Geographic", time: "6h", color: "#FFD700" },
-            { title: "Local chef wins international culinary award for innovative fusion dishes", source: "Food Network", time: "12h", color: "#DC143C" }
+            { title: "Upcoming smartphone leaks suggest a massive 200MP camera upgrade", source: "TechRadar", time: "45m", color: "#FF8C00" }
         ];
 
         const newsFeedContainer = document.getElementById('news-feed');
