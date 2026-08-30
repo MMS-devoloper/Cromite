@@ -12,7 +12,6 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            /* Disable blue highlight on mobile tap */
             -webkit-tap-highlight-color: transparent; 
         }
 
@@ -32,11 +31,10 @@
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
+            padding-top: 10px;
         }
 
         /* --- Click Animations (Touch Feedback) --- */
-        .nav-left svg:active, .nav-right svg:active, 
-        .profile-pic:active, .tab-count:active,
         .search-icon:active, .action-btn:active, 
         .shortcut:active, .tips-content button:active, 
         .news-item:active {
@@ -47,48 +45,6 @@
 
         .action-btn, .shortcut, .news-item, .tips-content button {
             transition: all 0.2s ease;
-        }
-
-        /* Top Navigation */
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-        }
-
-        .nav-left svg, .nav-right svg {
-            fill: #e3e3e3;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .profile-pic {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: url('https://picsum.photos/50') center/cover;
-            cursor: pointer;
-        }
-
-        .tab-count {
-            border: 2px solid #e3e3e3;
-            border-radius: 6px;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
         }
 
         /* Logo */
@@ -170,6 +126,7 @@
             color: #e3e3e3;
             cursor: pointer;
             user-select: none;
+            text-decoration: none;
         }
 
         .action-btn svg {
@@ -392,16 +349,6 @@
 <body>
 
     <div class="phone-container">
-        <header class="top-nav">
-            <div class="nav-left" onclick="alert('Home button clicked!')">
-                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            </div>
-            <div class="nav-right">
-                <div class="profile-pic" onclick="alert('Opening Google Account settings...')"></div>
-                <div class="tab-count" onclick="alert('Showing active tabs...')">1</div>
-                <svg viewBox="0 0 24 24" onclick="alert('Opening Chrome Menu...')"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-            </div>
-        </header>
 
         <div class="logo-container">
             <h1>Google</h1>
@@ -428,10 +375,10 @@
         </div>
 
         <div class="action-buttons">
-            <div class="action-btn" onclick="alert('Activating Google AI Mode...')">
+            <a href="https://www.google.com/search?q=&client=ms-android-xiaomi-terr1-rso2&sourceid=chrome-mobile&ie=UTF-8&udm=50&aep=43&cud=0&source=chrome.crn.obic" class="action-btn">
                 <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 10h-2v2h-2v-2h-2v-2h2V9h2v2h2v2z"/></svg>
                 AI Mode
-            </div>
+            </a>
             <div class="action-btn" onclick="alert('Opening New Incognito Tab...')">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
                 Incognito
@@ -492,7 +439,7 @@
     <script>
         // Google Search Functionality
         function performSearch(event) {
-            event.preventDefault(); // Prevent page reload
+            event.preventDefault(); 
             const query = document.getElementById('searchInput').value;
             if (query.trim() !== '') {
                 window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
@@ -522,10 +469,8 @@
             const news = getRandomItem(newsDatabase);
             const randomImageId = Math.floor(Math.random() * 1000); 
             
-            // Search the news title in Google when clicked
             const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(news.title);
             
-            // Generate link instead of div for clickability
             const card = document.createElement('a');
             card.className = 'news-item';
             card.href = searchUrl;
