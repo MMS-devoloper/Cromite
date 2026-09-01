@@ -35,12 +35,16 @@
         }
 
         /* --- Click Animations --- */
-        .search-bar:active, .action-btn:active, 
-        .shortcut:active, .tips-content button:active, 
-        .news-item:active {
+        .search-bar:active, .search-icon:active, 
+        .action-btn:active, .shortcut:active, 
+        .tips-content button:active, .news-item:active {
             opacity: 0.6;
             transform: scale(0.95);
             transition: all 0.1s ease;
+        }
+
+        .search-bar, .action-btn, .shortcut, .news-item, .tips-content button {
+            transition: all 0.2s ease;
         }
 
         /* Logo */
@@ -57,7 +61,7 @@
             color: #ffffff;
         }
 
-        /* Search Bar (Dummy) */
+        /* Search Bar */
         .search-wrapper {
             padding: 0 16px;
             margin-bottom: 12px;
@@ -70,7 +74,7 @@
             align-items: center;
             padding: 14px 18px;
             gap: 12px;
-            cursor: text;
+            cursor: pointer;
         }
 
         .search-bar input {
@@ -81,7 +85,8 @@
             font-size: 16px;
             outline: none;
             width: 100%;
-            pointer-events: none; /* Let the parent div handle the click */
+            cursor: pointer;
+            pointer-events: none; /* Clicking input triggers the parent div's click */
         }
 
         .search-bar input::placeholder {
@@ -93,103 +98,6 @@
             height: 22px;
             fill: #c4c7c5;
             cursor: pointer;
-        }
-
-        /* --- Search Overlay (The Magic Fix) --- */
-        .search-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #1a1a1c;
-            z-index: 9999;
-            display: none; /* Hidden by default */
-            flex-direction: column;
-        }
-
-        .search-overlay.active {
-            display: flex;
-        }
-
-        .overlay-header {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            gap: 12px;
-            background-color: #202124;
-            border-bottom: 1px solid #3c4043;
-        }
-
-        .back-icon {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            fill: #e3e3e3;
-        }
-
-        .overlay-form {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            background-color: #36373a;
-            border-radius: 24px;
-            padding: 10px 16px;
-            gap: 12px;
-        }
-
-        .overlay-form input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .overlay-form input::placeholder {
-            color: #9aa0a6;
-        }
-
-
-        /* --- Auto Search Suggestions --- */
-        .suggestions-container {
-            display: none;
-            background-color: #202124;
-            border-top: 1px solid #3c4043;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 6px 0 10px;
-        }
-        .suggestions-container.active { display: block; }
-        .suggestion-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 13px 18px;
-            color: #e3e3e3;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .suggestion-item:active { background-color: #303134; }
-        .suggestion-icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            fill: #9aa0a6;
-        }
-        .suggestion-text {
-            flex: 1;
-            font-size: 15px;
-            line-height: 1.3;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        .suggestion-loading {
-            padding: 14px 18px;
-            color: #9aa0a6;
-            font-size: 14px;
         }
 
         /* Action Buttons */
@@ -213,6 +121,7 @@
             font-weight: 500;
             color: #e3e3e3;
             cursor: pointer;
+            user-select: none;
             text-decoration: none;
         }
 
@@ -233,7 +142,9 @@
             scrollbar-width: none;
         }
         
-        .shortcuts-container::-webkit-scrollbar { display: none; }
+        .shortcuts-container::-webkit-scrollbar {
+            display: none;
+        }
 
         .shortcut {
             display: flex;
@@ -241,6 +152,7 @@
             align-items: center;
             gap: 8px;
             min-width: 68px;
+            cursor: pointer;
             text-decoration: none;
         }
 
@@ -255,6 +167,7 @@
             font-size: 24px;
             font-weight: bold;
             color: #fff;
+            position: relative;
             overflow: hidden;
         }
 
@@ -268,7 +181,7 @@
             text-align: center;
         }
 
-        /* Carousel / Tips Section */
+        /* --- Carousel / Tips Section --- */
         .carousel-wrapper {
             width: 100%;
             display: flex;
@@ -286,7 +199,9 @@
             scroll-behavior: smooth;
         }
 
-        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
 
         .carousel-slide {
             flex: 0 0 100%;
@@ -327,9 +242,16 @@
             position: relative;
         }
 
-        .tips-graphic.security-badge { background-color: #1e2a44; }
-        .tips-graphic.safety-key { background-color: #36373a; border-radius: 20px; }
+        .tips-graphic.security-badge {
+            background-color: #1e2a44;
+        }
+        
+        .tips-graphic.safety-key {
+            background-color: #36373a;
+            border-radius: 20px;
+        }
 
+        /* Icons */
         .tips-graphic::before, .tips-graphic::after {
             position: absolute;
             color: #7baaf7;
@@ -345,9 +267,24 @@
             border-radius: 6px;
         }
 
-        .tips-content { flex: 1; }
-        .tips-content h3 { font-size: 16px; font-weight: 500; margin-bottom: 6px; color: #e3e3e3; }
-        .tips-content p { font-size: 13px; color: #9aa0a6; line-height: 1.4; margin-bottom: 16px; }
+        .tips-content {
+            flex: 1;
+        }
+
+        .tips-content h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #e3e3e3;
+        }
+
+        .tips-content p {
+            font-size: 13px;
+            color: #9aa0a6;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
         .tips-content button {
             background-color: #a8c7fa;
             color: #062e6f;
@@ -357,9 +294,15 @@
             font-weight: 500;
             font-size: 14px;
             cursor: pointer;
+            outline: none;
+            display: inline-block;
         }
-        .align-right { text-align: right; }
+        
+        .align-right {
+            text-align: right;
+        }
 
+        /* Carousel Indicator Dots */
         .carousel-dots {
             display: flex;
             gap: 6px;
@@ -374,9 +317,12 @@
             border-radius: 50%;
             transition: background-color 0.3s;
         }
-        .dot.active { background-color: #e3e3e3; }
 
-        /* News Feed Section */
+        .dot.active {
+            background-color: #e3e3e3;
+        }
+
+        /* News Feed (Discover Section) */
         .discover-section {
             background-color: #202124;
             border-radius: 24px 24px 0 0;
@@ -395,11 +341,36 @@
             cursor: pointer;
             text-decoration: none;
         }
-        .news-item:last-child { border-bottom: none; }
-        .news-text { flex: 1; }
-        .news-text h3 { font-size: 17px; font-weight: 400; line-height: 1.4; color: #e3e3e3; margin-bottom: 12px; }
-        .news-footer { display: flex; align-items: center; gap: 8px; }
-        .source-icon { width: 16px; height: 16px; border-radius: 50%; display: inline-block; }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-text {
+            flex: 1;
+        }
+
+        .news-text h3 {
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #e3e3e3;
+            margin-bottom: 12px;
+        }
+
+        .news-footer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .source-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
         .news-thumbnail {
             width: 90px;
             height: 90px;
@@ -410,6 +381,7 @@
             flex-shrink: 0;
         }
 
+        /* Loader */
         .loader-container {
             padding: 20px;
             text-align: center;
@@ -420,6 +392,7 @@
             align-items: center;
             gap: 8px;
         }
+
         .spinner {
             width: 16px;
             height: 16px;
@@ -428,7 +401,11 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -440,7 +417,7 @@
         </div>
 
         <div class="search-wrapper">
-            <div class="search-bar" onclick="openSearchOverlay()">
+            <div class="search-bar" onclick="window.location.href='https://www.google.com/'">
                 <svg viewBox="0 0 24 24" width="22" height="22">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -456,20 +433,6 @@
                     <svg viewBox="0 0 24 24"><path d="M19 8h-1V6c0-1.1-.9-2-2-2h-3v2h3v2h-1c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm-1 8h-3v-6h3v6zm-7-2H8v-2h3V9H8V7h3V5H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h3v-1zm-3-3H6v-2h2v2z"/></svg>
                 </div>
             </div>
-        </div>
-
-        <div id="search-overlay" class="search-overlay">
-            <div class="overlay-header">
-                <svg class="back-icon" viewBox="0 0 24 24" onclick="closeSearchOverlay()">
-                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-                </svg>
-                
-                <form class="overlay-form" onsubmit="submitSearch(event)">
-                    <input type="text" id="active-search-input" placeholder="Search Google or type..." autocomplete="off">
-                    <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="#c4c7c5"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
-                </form>
-            </div>
-            <div id="suggestions-container" class="suggestions-container"></div>
         </div>
 
         <div class="action-buttons">
@@ -512,19 +475,25 @@
 
         <div class="carousel-wrapper">
             <div class="carousel-track" id="tips-track">
+                
                 <div class="carousel-slide">
                     <div class="tips-card">
                         <div class="tips-header">Chrome tips</div>
                         <div class="tips-body">
-                            <div class="tips-graphic icon-arrows"><div class="phone-mock"></div></div>
+                            <div class="tips-graphic icon-arrows">
+                                <div class="phone-mock"></div>
+                            </div>
                             <div class="tips-content">
                                 <h3>Choose address bar position</h3>
                                 <p>Switch the position to customize your ...</p>
-                                <div class="align-right"><button onclick="alert('Opening settings...')">Go to settings</button></div>
+                                <div class="align-right">
+                                    <button onclick="alert('Opening settings...')">Go to settings</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="carousel-slide">
                     <div class="tips-card">
                         <div class="tips-header">Chrome tips</div>
@@ -535,11 +504,14 @@
                             <div class="tips-content">
                                 <h3>Browse across devices</h3>
                                 <p>Get your history on all your devices, so you can easily pick up where you left off</p>
-                                <div class="align-right"><button onclick="alert('Syncing devices...')">Let's go</button></div>
+                                <div class="align-right">
+                                    <button onclick="alert('Syncing devices...')">Let's go</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="carousel-slide">
                     <div class="tips-card">
                         <div class="tips-header">Chrome tips</div>
@@ -550,11 +522,14 @@
                             <div class="tips-content">
                                 <h3>Enhance your security</h3>
                                 <p>Get Chrome's strongest protection against online threats</p>
-                                <div class="align-right"><button onclick="alert('Opening settings...')">Go to settings</button></div>
+                                <div class="align-right">
+                                    <button onclick="alert('Opening settings...')">Go to settings</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="carousel-slide">
                     <div class="tips-card">
                         <div class="tips-header">Safety Check</div>
@@ -565,135 +540,54 @@
                             <div class="tips-content">
                                 <h3>Change passwords</h3>
                                 <p>Found 1 compromised password</p>
-                                <div class="align-right"><button onclick="alert('Opening password manager...')">Change passwords</button></div>
+                                <div class="align-right">
+                                    <button onclick="alert('Opening password manager...')">Change passwords</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
             <div class="carousel-dots">
-                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
 
-        <div class="discover-section" id="news-feed"></div>
+        <div class="discover-section" id="news-feed">
+            </div>
+        
         <div class="loader-container" id="loading-trigger">
-            <div class="spinner"></div> Loading more...
+            <div class="spinner"></div>
+            Loading more...
         </div>
 
     </div>
 
     <script>
-        // --- Overlay Search Logic (Fixes the 2-click issue!) ---
-        function openSearchOverlay() {
-            const overlay = document.getElementById('search-overlay');
-            const activeInput = document.getElementById('active-search-input');
-            overlay.classList.add('active');
-            
-            // This forces the mobile keyboard to open immediately!
-            setTimeout(() => {
-                activeInput.focus();
-            }, 50); 
-        }
-
-        function closeSearchOverlay() {
-            const overlay = document.getElementById('search-overlay');
-            overlay.classList.remove('active');
-            document.getElementById('active-search-input').value = ""; // Clear input on close
-            hideSuggestions();
-        }
-
-        // --- Auto Search Suggestions ---
-        const searchInput = document.getElementById('active-search-input');
-        const suggestionsContainer = document.getElementById('suggestions-container');
-        let suggestionTimer = null;
-        let suggestionController = null;
-
-        function hideSuggestions() {
-            suggestionsContainer.classList.remove('active');
-            suggestionsContainer.innerHTML = '';
-        }
-
-        function selectSuggestion(text) {
-            searchInput.value = text;
-            hideSuggestions();
-            submitSearch({ preventDefault: () => {} });
-        }
-
-        function renderSuggestions(items) {
-            suggestionsContainer.innerHTML = '';
-            if (!items.length) {
-                hideSuggestions();
-                return;
-            }
-            const fragment = document.createDocumentFragment();
-            items.slice(0, 8).forEach(text => {
-                const item = document.createElement('div');
-                item.className = 'suggestion-item';
-                item.innerHTML = `
-                    <svg class="suggestion-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M9.5 3a6.5 6.5 0 0 0 0 13c1.61 0 3.08-.59 4.21-1.56L19.71 20.44 21.12 19l-5.99-5.99A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 0 0 9.5 3zm0 2A4.5 4.5 0 1 1 5 9.5 4.5 4.5 0 0 1 9.5 5z"/>
-                    </svg>
-                    <span class="suggestion-text"></span>`;
-                item.querySelector('.suggestion-text').textContent = text;
-                item.addEventListener('click', () => selectSuggestion(text));
-                fragment.appendChild(item);
-            });
-            suggestionsContainer.appendChild(fragment);
-            suggestionsContainer.classList.add('active');
-        }
-
-        async function fetchSuggestions(query) {
-            if (suggestionController) suggestionController.abort();
-            suggestionController = new AbortController();
-            suggestionsContainer.innerHTML = '<div class="suggestion-loading">Loading suggestions...</div>';
-            suggestionsContainer.classList.add('active');
-            try {
-                const url = 'https://suggestqueries.google.com/complete/search?client=firefox&hl=en&q=' + encodeURIComponent(query);
-                const response = await fetch(url, { signal: suggestionController.signal });
-                if (!response.ok) throw new Error('Suggestion request failed');
-                const data = await response.json();
-                renderSuggestions(Array.isArray(data[1]) ? data[1] : []);
-            } catch (error) {
-                if (error.name !== 'AbortError') hideSuggestions();
-            }
-        }
-
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.trim();
-            clearTimeout(suggestionTimer);
-            if (!query) {
-                hideSuggestions();
-                return;
-            }
-            suggestionTimer = setTimeout(() => fetchSuggestions(query), 180);
-        });
-
-        searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') hideSuggestions();
-        });
-
-        function submitSearch(e) {
-            e.preventDefault();
-            const query = searchInput.value.trim();
-            if (query !== '') {
-                window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-            }
-        }
-
-        // --- Carousel Logic ---
+        // --- Carousel Logic for updating dots ---
         const track = document.getElementById('tips-track');
         const dots = document.querySelectorAll('.dot');
+
         track.addEventListener('scroll', () => {
             const scrollPosition = track.scrollLeft;
             const slideWidth = track.clientWidth;
             const currentIndex = Math.round(scrollPosition / slideWidth);
+
             dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
             });
         });
 
-        // --- News Feed Logic ---
+        // --- Dummy data for generating random news ---
         const newsDatabase = [
             { title: "'No sign of survivors' at Chinese border crossing as Nepal flooding death toll rises", source: "CNN", time: "2h", color: "#CC0000" },
             { title: "In wake of devastating floods, Pope sends aid to Nepal", source: "Catholic News", time: "5h", color: "#E0245E" },
@@ -706,13 +600,21 @@
         const newsFeedContainer = document.getElementById('news-feed');
         const loadingTrigger = document.getElementById('loading-trigger');
 
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
         function createNewsCard() {
-            const news = newsDatabase[Math.floor(Math.random() * newsDatabase.length)];
+            const news = getRandomItem(newsDatabase);
             const randomImageId = Math.floor(Math.random() * 1000); 
+            
+            const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(news.title);
+            
             const card = document.createElement('a');
             card.className = 'news-item';
-            card.href = 'https://www.google.com/search?q=' + encodeURIComponent(news.title);
+            card.href = searchUrl;
             card.target = '_blank';
+            
             card.innerHTML = `
                 <div class="news-text">
                     <h3>${news.title}</h3>
@@ -723,19 +625,40 @@
                 </div>
                 <div class="news-thumbnail" style="background-image: url('https://picsum.photos/120/120?random=${randomImageId}')"></div>
             `;
+            
             return card;
         }
 
         function loadMoreNews(count = 3) {
-            for (let i = 0; i < count; i++) newsFeedContainer.appendChild(createNewsCard());
+            for (let i = 0; i < count; i++) {
+                const newCard = createNewsCard();
+                newsFeedContainer.appendChild(newCard);
+            }
         }
 
-        window.addEventListener('DOMContentLoaded', () => loadMoreNews(4));
+        // Initial Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMoreNews(4);
+        });
+
+        // Infinite Scroll Logic
+        const observerOptions = {
+            root: null, 
+            rootMargin: '0px',
+            threshold: 0.1 
+        };
 
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) setTimeout(() => loadMoreNews(3), 800);
-        }, { root: null, rootMargin: '0px', threshold: 0.1 });
+            const entry = entries[0];
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    loadMoreNews(3);
+                }, 800);
+            }
+        }, observerOptions);
+
         observer.observe(loadingTrigger);
+
     </script>
 </body>
 </html>
